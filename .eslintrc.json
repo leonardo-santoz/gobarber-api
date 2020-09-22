@@ -23,7 +23,13 @@
     "prettier"
   ],
   "rules": {
-    "class-methods-use-this":"off",
+    "class-methods-use-this": "off",
+    "@typescript-eslint/interface-name-prefix": [
+      "error",
+      {
+        "prefixWithI": "always"
+      }
+    ],
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -32,9 +38,12 @@
       }
     ],
     "prettier/prettier": "error",
-    "@typescript-eslint/no-unsed-vars": ["error", {
-      "argsIgnorePattern": "_"
-    }]
+    "@typescript-eslint/no-unsed-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "_"
+      }
+    ]
   },
   "settings": {
     "import/resolver": {
