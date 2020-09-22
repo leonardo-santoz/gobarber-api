@@ -5,11 +5,11 @@ import cors from 'cors';
 // por default, não conseguimos resgatar o status code de rotas assíncronas, portanto é necessário usar express async errors
 import 'express-async-errors';
 
+import uploadConfig from '@config/upload';
+import AppError from '@shared/errors/AppError';
 import routes from './routes';
-import uploadConfig from '../../../config/upload';
-import AppError from './errors/AppError';
 
-import './database';
+import '@shared/infra/typeorm';
 
 const app = express();
 
@@ -28,8 +28,6 @@ app.use(
         message: err.message,
       });
     }
-
-    console.log(err);
 
     return response.status(500).json({
       status: 'error',

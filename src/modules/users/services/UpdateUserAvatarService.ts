@@ -1,11 +1,11 @@
 import { getRepository } from 'typeorm';
 import path from 'path';
 import fs from 'fs';
-import uploadConfig from '../config/upload';
+import uploadConfig from '@config/upload';
 
-import AppError from '../errors/AppError';
+import AppError from '@shared/errors/AppError';
 
-import User from '../models/User';
+import User from '../infra/typeorm/entities/User';
 
 interface Request {
   user_id: string;
@@ -23,7 +23,7 @@ class UpdateUserAvatarService {
     }
 
     if (user.avatar) {
-      //delete avatar atual, caso exista
+      // delete avatar atual, caso exista
       const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);
       const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath);
 
@@ -32,7 +32,7 @@ class UpdateUserAvatarService {
       }
     }
 
-    //atualizando avatar
+    // atualizando avatar
     user.avatar = avatarFilename;
 
     await usersRepository.save(user);
