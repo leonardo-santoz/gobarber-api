@@ -1,0 +1,44 @@
+import 'reflect-metadata';
+
+import express, { Request, Response, NextFunction } from 'express';
+import cors from 'cors';
+// por default, não conseguimos resgatar o status code de rotas assíncronas, portanto é necessário usar express async errors
+import 'express-async-errors';
+
+import routes from './routes';
+import uploadConfig from './config/upload';
+import AppError from './errors/AppError';
+
+import './database';
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+app.use('/files', express.static(uploadConfig.directory));
+app.use(routes);
+
+// middleware para tratar erros de modo global
+app.use(
+  (err: Error, request: Request, response: Response, _next: NextFunction) => {
+    // verificando se o erro é uma instancia do meu apperror
+    if (err instanceof AppError) {
+      return response.status(err.statusCode).json({
+        status: 'error',
+        message: err.message,
+      });
+    }
+
+    console.log(err);
+
+    return response.status(500).json({
+      status: 'error',
+      message: 'Internal server error',
+    });
+  },
+);
+
+app.listen('3333', () => {
+  // eslint-disable-next-line no-console
+  console.log('Back-end started on port 3333 :)');
+});
