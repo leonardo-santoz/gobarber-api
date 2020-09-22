@@ -3,7 +3,7 @@ import { verify, sign } from 'jsonwebtoken';
 
 import authConfig from '../config/auth';
 
-import AppError from '../errors/AppError';
+import AppError from '../../../errors/AppError';
 
 interface TokenPayload {
   iat: number;
@@ -22,13 +22,13 @@ export default function ensureAuthenticated(
     throw new AppError('JWT token is missing', 401);
   }
 
-  //indico que não preciso da primeira posicao do array
+  // indico que não preciso da primeira posicao do array
   const [, token] = authHeader.split(' ');
 
   try {
     const decoded = verify(token, authConfig.jwt.secret);
 
-    //forçando tipo do decoded
+    // forçando tipo do decoded
     const { sub } = decoded as TokenPayload;
 
     request.user = {

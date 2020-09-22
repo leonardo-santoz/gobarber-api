@@ -9,7 +9,7 @@ import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 const appointmentsRouter = Router();
 
-//aplicando autenticação à todas as rotas
+// aplicando autenticação à todas as rotas
 appointmentsRouter.use(ensureAuthenticated);
 
 appointmentsRouter.get('/', async (request, response) => {
