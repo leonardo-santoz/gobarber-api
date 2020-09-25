@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /usr/share/yarn/bin/yarn.js add tsconfit-paths -D
+  /usr/bin/node /usr/share/yarn/bin/yarn.js add tsyrynge
 
 PATH: 
   /home/leonardo-santos/.node_modules_global/bin:/home/leonardo-santos/.node_modules_global/bin:/home/leonardo-santos/.zinit/polaris/sbin:/home/leonardo-santos/.zinit/polaris/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/leonardo-santos/Android/Sdk/emulator:/home/leonardo-santos/Android/Sdk/tools:/home/leonardo-santos/Android/Sdk/tools/bin:/home/leonardo-santos/Android/Sdk/platform-tools:/home/leonardo-santos/.yarn/bin:/home/leonardo-santos/android-studio/bin:/home/leonardo-santos/Android/Sdk/emulator:/home/leonardo-santos/Android/Sdk/tools:/home/leonardo-santos/Android/Sdk/tools/bin:/home/leonardo-santos/Android/Sdk/platform-tools:/home/leonardo-santos/.yarn/bin:/home/leonardo-santos/android-studio/bin
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/tsconfit-paths: Not found
+  Error: https://registry.yarnpkg.com/tsyrynge: Not found
       at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:66987:18)
       at Request.self.callback (/usr/share/yarn/lib/cli.js:140748:22)
       at Request.emit (events.js:198:13)
@@ -34,9 +34,9 @@ npm manifest:
     "license": "MIT",
     "scripts": {
       "build": "tsc",
-      "dev:server": "ts-node-dev --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
+      "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
       "start": "ts-node src/shared/infra/http/server.ts",
-      "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
+      "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
     },
     "dependencies": {
       "@types/cors": "^2.8.7",
@@ -67,6 +67,7 @@ npm manifest:
       "eslint-plugin-prettier": "^3.1.4",
       "prettier": "^2.1.0",
       "ts-node-dev": "^1.0.0-pre.60",
+      "tsconfig-paths": "^3.9.0",
       "typescript": "^4.0.2"
     }
   }
