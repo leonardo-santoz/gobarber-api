@@ -24,6 +24,8 @@
   ],
   "rules": {
     "class-methods-use-this": "off",
+    "@typescript-eslint/camalcase": "off",
+    "no-useless-constructor": "off",
     "@typescript-eslint/interface-name-prefix": [
       "error",
       {
