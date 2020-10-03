@@ -5,6 +5,7 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import IUsersRepository from '../repositories/IUsersRepository';
+import IStoragedProvider from '@shared/container/providers/StoragedProvider/models/IStoragedProvider';
 
 import User from '../infra/typeorm/entities/User';
 
@@ -18,7 +19,10 @@ class UpdateUserAvatarService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
-  ) {}
+    
+    @inject('StorageProvider')
+    private storageProvider: IStoragedProvider,
+  ) { }
 
   public async execute({ user_id, avatarFilename }: IRequest): Promise<User> {
     const user = await this.usersRepository.findById(user_id);
@@ -29,16 +33,13 @@ class UpdateUserAvatarService {
 
     if (user.avatar) {
       // delete avatar atual, caso exista
-      const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);
-      const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath);
-
-      if (userAvatarFileExists) {
-        await fs.promises.unlink(userAvatarFilePath);
-      }
+      await this.storageProvider.deleteFile(user.avatar);
     }
-
+    
     // atualizando avatar
-    user.avatar = avatarFilename;
+    const filename = await this.storageProvider.saveFile(avatarFilename)
+
+    user.avatar = filename;
 
     await this.usersRepository.save(user);
 
