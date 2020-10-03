@@ -6,7 +6,7 @@ import AuthenticateUserService from './AuthenticateUserService';
 import CreateUserService from './CreateUserService';
 
 describe('AuthenticateUser', () => {
-  it('sould be able to authenticate', async () => {
+  it('should be able to authenticate', async () => {
     const fakeUsersRepository = new FakeUsersRepository();
     const fakeHashProvider = new FakeHashProvider();
 
@@ -35,7 +35,7 @@ describe('AuthenticateUser', () => {
     expect(response.user).toEqual(user);
   });
 
-  it('sould not be able to authenticate with non existing user', async () => {
+  it('should not be able to authenticate with non existing user', async () => {
     const fakeUsersRepository = new FakeUsersRepository();
     const fakeHashProvider = new FakeHashProvider();
 
@@ -52,7 +52,7 @@ describe('AuthenticateUser', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('sould be not able to authenticate with wrong password', async () => {
+  it('should be not able to authenticate with wrong password', async () => {
     const fakeUsersRepository = new FakeUsersRepository();
     const fakeHashProvider = new FakeHashProvider();
 

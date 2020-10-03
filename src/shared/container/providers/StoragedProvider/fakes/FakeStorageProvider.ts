@@ -17,4 +17,4 @@ class FakeStorageProvider implements IStoragedProvider {
     }
 }
 
-export default DiskStorageProvider;
+export default FakeStorageProvider;
